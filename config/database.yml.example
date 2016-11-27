@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  pool: 5
+  timeout: 5000
+  host: localhost
+  username: postgres
+  password: password
+
+development:
+  <<: *default
+  database: alexa_tracker_development
+
+test:
+  <<: *default
+  database: alexa_tracker_test
+
+# Define creds as env varables per production server and keep them secure
+production:
+  <<: *default
+  database: alexa_tracker_production

@@ -1,0 +1,11 @@
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+
+<% if user_signed_in? %>
+  <h1><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></h1>
+  <% if current_user.admin %>
+    <h1><%= link_to('Admin Panel', rails_admin_url) %></h1>
+  <% end %>
+<% else %>
+  <h1><%= link_to('Login', new_user_session_path)  %></h1>
+<% end %>

@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @site.url %>
+</p>
+
+<p>
+  <strong>Analytics:</strong>
+  <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+</p>
+
+<%= link_to 'Edit', edit_site_path(@site) %> |
+<%= link_to 'Back', sites_path %>
+
+
+<script type='text/javascript'>
+
+$(function () {
+    Highcharts.chart('container', {
+        title: {
+            text: 'Daily rank',
+            x: -20 //center
+        },
+        subtitle: {
+            text: 'Source: http://www.alexa.com',
+            x: -20
+        },
+        xAxis: {
+            categories: [1,2,3]//<%#=raw (@site.analytics.keys.map {|a| Time.at(a.to_i).strftime('%v')}).to_a %>
+        },
+        yAxis: {
+            title: {
+                text: 'Rank'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#0000'
+            }]
+        },
+        tooltip: {
+            valueSuffix: ''
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [{
+            name: '<%= @site.url %>',
+            data: <%=raw @site.analytics.values.map{|a| a.to_f} %>
+        }]
+    });
+});
+
+</script>
